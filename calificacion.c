@@ -3,8 +3,12 @@
 int main()
 {
 int cal;
-    printf("Ingrese su calificación: ");
-    scanf("%d", &cal);
+printf("Ingrese su calificación: ");
+scanf("%d", &cal);
+    while(cal<0){
+    printf("Error, no se permiten números negativos.\n");
+    printf("Ingrese una nueva calificación: \n");
+    scanf("%d", &cal);}
     
 if(cal>=90)
 printf("Calificación:A");
