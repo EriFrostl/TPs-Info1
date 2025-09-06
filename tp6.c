@@ -1,5 +1,5 @@
-
 #include <stdio.h>
+#include <math.h>
 
 float calcularAreaRectangulo (float, float);
 float calcularPerimetroRectangulo (float, float);
@@ -10,76 +10,84 @@ void imprimirResultados (int, float, float, float);
 
 int main(void)
 {
-int fig;
-float longi, alt, radio, area, perim, diag=-1;
+int figura;
+float longitud, altura, radio, area, perimetro, diagonal;
 
-do
-    {printf ("\nIngrese la figura que desea calcular (1: rectángulo, 2: círculo):");
-    scanf ("%d", &fig);
+do {printf ("\nIngrese la figura que desea calcular (1: rectángulo, 2: círculo):");
+    scanf ("%d", &figura);
     
-    if (fig!=1 && fig!=2)
+    if (figura!=1 && figura!=2)
         printf("\nError, el número ingresado no se corresponde con ninguna opción");
-}while (fig!=1 && fig!=2);
+}while (figura!=1 && figura!=2);
 
 
-if(fig==1){
+if(figura==1){
     printf("\nOpción de rectángulo seleccionada.");
     
-    printf("\nIngrese la longitud del rectángulo:");
-        scanf ("%f", &longi);
-    printf("\nIngrese la altura del rectángulo:");
-        scanf ("%f", &alt);
+   do{printf("\nIngrese la longitud del rectángulo:");
+        scanf ("%f", &longitud);
+        if(longitud<=0)
+        printf("\nError, la longitud debe ser un número positivo");
+   }while (longitud<=0);
+   
+    do{printf("\nIngrese la altura del rectángulo:");
+        scanf ("%f", &altura);
+        if(altura<=0)
+        printf("\nError, la altura debe ser un número positivo");
+   }while (altura<=0);
         
-    area=calcularAreaRectangulo (longi, alt);
-    perim=calcularPerimetroRectangulo (longi, alt);
-    diag=calcularDiagonalRectangulo (longi, alt);
+    area=calcularAreaRectangulo (longitud, altura);
+    perimetro=calcularPerimetroRectangulo (longitud, altura);
+    diagonal=calcularDiagonalRectangulo (longitud, altura);
 } 
 
 
 else {
     printf("\nOpción de círculo seleccionada.");
     
-    printf("\nIngrese el radio del círculo:");
+    do{printf("\nIngrese el radio del círculo:");
         scanf ("%f", &radio);
-        
+        if(radio<=0)
+        printf("\nError, el radio debe ser un número positivo");
+   }while (radio<=0);  
+   
     area=calcularAreaCirculo (radio);
-    perim=calcularPerimetroCirculo (radio);   
-}
+    perimetro=calcularPerimetroCirculo (radio);
+    }
 
-imprimirResultados (fig, area, perim, diag);
+imprimirResultados (figura, area, perimetro, diagonal);
     
 
     return 0;
 }
 
-float calcularAreaRectangulo (float longi, float alt){
-    return longi*alt;
+float calcularAreaRectangulo (float longitud, float altura){
+    return longitud*altura;
 }
 
-float calcularPerimetroRectangulo (float longi, float alt){
-    return longi*2+alt*2;
+float calcularPerimetroRectangulo (float longitud, float altura){
+    return longitud*2+altura*2;
 }
 
-float calcularDiagonalRectangulo (float longi, float alt){
-    return longi*longi+alt*alt;
+float calcularDiagonalRectangulo (float longitud, float altura){
+    return sqrt(longitud*longitud+altura*altura);
 }
 
 float calcularAreaCirculo (float radio){
-    return 3.14159*radio*radio;
+    return M_PI*radio*radio;
 }
 
 float calcularPerimetroCirculo (float radio){
-    return 2*3.14159*radio;
+    return 2*M_PI*radio;
 }
 
-void imprimirResultados (int fig, float area, float perim, float diag){
-    printf("\nEl área del %s es %.2f", fig==1?"rectángulo":"círculo", area);
-    printf("\nEl perímetro del %s es %.2f", fig==1?"rectángulo":"círculo", perim);
+void imprimirResultados (int figura, float area, float perimetro, float diagonal){
+    printf("\nEl área del %s es %.2f", figura==1?"rectángulo":"círculo", area);
+    printf("\nEl perímetro del %s es %.2f", figura==1?"rectángulo":"círculo", perimetro);
     
-    if(diag>0)
-        printf("\nLa diagonal del rectángulo es la raiz cuadrada de %.2f", diag);
+    if(figura==1)
+        printf("\nLa diagonal del rectángulo es %.2f", diagonal);
     
     return ;
     
 }
-
